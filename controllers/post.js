@@ -111,13 +111,15 @@ async function update(req, res) {
 }
 
 async function remove(req, res, next) {
-try{ 
   const postId = req.params.id
+
+  try{ 
   // TODO: Delete a post
   // delete post by id, return a 200 status
-  const post = await Post.findByIdAndDelete({_id: postId})
+  await Post.findByIdAndDelete(postId)
+  res.status(200).send('post has been deleted')
 } catch(err){
-  res.status(200).json(err)
+    res.status(500).send(err.message)
   }
 }
 
